@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -21,8 +23,10 @@ public class GameManager : MonoBehaviour
     private WolfBehaviour wolfBehaviour;
     private GameObject wolf;
     private int wolfIndex;
-    
     private bool infect;
+
+    [SerializeField]
+    private TextMeshProUGUI storyText;
 
     void Start()
     {
@@ -69,7 +73,7 @@ public class GameManager : MonoBehaviour
                 HandleWolfTurn();
                 break;
             case GameState.Victory:
-                HandleVictory();
+                HandleVictory(wolf);
                 break;
             case GameState.Defeat:
                 HandleDefeat();
@@ -80,14 +84,42 @@ public class GameManager : MonoBehaviour
     IEnumerator StoryCoroutine()
     {
         storyCoroutineRunning = true;
+        yield return new WaitForSeconds(0.2f); // Adjust as needed
+
+        storyText.text = "There is a werewolf in your midst.";
+        //Debug.Log("There is a werewolf in your midst.");
         yield return new WaitForSeconds(1f); // Adjust as needed
 
-        Debug.Log("There is a wolf in your midst.");
-        yield return new WaitForSeconds(2f); // Adjust as needed
-
-        Debug.Log("You must guess who it is.");
+        storyText.text = "You must guess who it is.";
+        //Debug.Log("You must guess who it is.");
         storyCoroutineRunning = false;
         currentState = GameState.PlayerGuess;
+    }
+    IEnumerator VictoryCoroutine()
+    {
+        storyCoroutineRunning = true;
+        yield return new WaitForSeconds(0.2f); // Adjust as needed
+
+        storyText.text = "You have found the werewolf!";
+        //Debug.Log("There is a werewolf in your midst.");
+        yield return new WaitForSeconds(1f); // Adjust as needed
+
+        //Exit scene
+        SceneManager.LoadScene("Menu");
+    }
+    IEnumerator DefeatCoroutine()
+    {
+        storyCoroutineRunning = true;
+        yield return new WaitForSeconds(0.2f); // Adjust as needed
+
+        storyText.text = "Everyone is infected!";
+        yield return new WaitForSeconds(1f);
+
+        storyText.text = "GAME OVER";
+        yield return new WaitForSeconds(2f);
+
+        //Exit scene
+        SceneManager.LoadScene("Menu");
     }
     void HandlePlayerTurn() 
     {
@@ -150,12 +182,16 @@ public class GameManager : MonoBehaviour
         else
             currentState = GameState.Pause;
     }
-    void HandleVictory() 
+    void HandleVictory(GameObject wolf) 
     {
-        Debug.Log("You have found the wolf!");
+        CharacterStatus wolfStatus = wolf.GetComponent<CharacterStatus>();
+        wolfStatus.isWolfRevealed = true;
+        if (!storyCoroutineRunning)
+            StartCoroutine(VictoryCoroutine());
     }
     void HandleDefeat() 
     {
-        Debug.Log("Everyone's infected. GAME OVER");
+        if(!storyCoroutineRunning)
+            StartCoroutine(DefeatCoroutine());
     }
 }
