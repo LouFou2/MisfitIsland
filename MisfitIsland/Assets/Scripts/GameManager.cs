@@ -95,7 +95,7 @@ public class GameManager : MonoBehaviour
                 HandleWolfGuess();
                 break;
             case GameState.Victory:
-                HandleVictory(wolf);
+                HandleVictory();
                 break;
             case GameState.Defeat:
                 HandleDefeat();
@@ -208,23 +208,23 @@ public class GameManager : MonoBehaviour
         playerInfluence /= characters.Length; // average "pro vs anti" sentiment of villagers
         wolfInfluence = -playerInfluence;
 
-        for (int i = 0; i <= 9; i++)
+        for (int i = 0; i <= 9; i++) // Only using keycodes for this iteration of testing
         {
             KeyCode keyCode = KeyCode.Alpha0 + i;
 
             if (Input.GetKeyDown(keyCode))
             {
                 // Check if the entered number is equal to the wolfIndex
-                if (i == wolfIndex)
+                if ( i - 1 == wolfIndex)
                 {
-                    CharacterStatus characterStatus = characters[i].GetComponent<CharacterStatus>();
+                    CharacterStatus characterStatus = characters[i - 1].GetComponent<CharacterStatus>();
                     characterStatus.isInTraining = true;
                     currentState = GameState.VillageTurn; // skips Wolf Turn if Wolf is in training
                 }
                 // Select character for training
-                else if (i < characters.Length)
+                else if ( i - 1 < characters.Length)
                 {
-                    CharacterStatus characterStatus = characters[i].GetComponent<CharacterStatus>();
+                    CharacterStatus characterStatus = characters[i - 1].GetComponent<CharacterStatus>();
                     characterStatus.isInTraining = true;
                     characterStatus.UpdateProOrAntiStat(10 + playerInfluence); // TODO handle influence effect better
                     currentState = GameState.WolfTurn;
@@ -340,14 +340,14 @@ public class GameManager : MonoBehaviour
             characterStatus.isInTraining = false;
         }
 
-        for (int i = 0; i <= 9; i++)
+        for (int i = 0; i <= 9; i++) // Keycodes for this iteration of testing
         {
             KeyCode keyCode = KeyCode.Alpha0 + i;
 
             if (Input.GetKeyDown(keyCode))
             {
                 // Check if the entered number is equal to the wolfIndex
-                if (i == wolfIndex)
+                if (i - 1 == wolfIndex)
                 {
                     currentState = GameState.Victory;
                 }
@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    void HandleVictory(GameObject wolf) 
+    void HandleVictory() 
     {
         CharacterStatus wolfStatus = wolf.GetComponent<CharacterStatus>();
         wolfStatus.isWolfRevealed = true;
