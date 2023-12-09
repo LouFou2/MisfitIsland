@@ -289,6 +289,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f3fb9967c16b489295501c2f7c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: aa4da3ef78e2071459295a9c5c0f2f6c, type: 2}
   isWolf: 0
   isWolfRevealed: 0
   proOrAntiSpectrum: 0
@@ -572,6 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f3fb9967c16b489295501c2f7c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: c392c595537221a4da416c3ac58571d8, type: 2}
   isWolf: 0
   isWolfRevealed: 0
   proOrAntiSpectrum: 0
@@ -901,6 +903,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f3fb9967c16b489295501c2f7c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: 38b952833697fd04ba67817da0a93db2, type: 2}
   isWolf: 0
   isWolfRevealed: 0
   proOrAntiSpectrum: 0
@@ -1715,6 +1718,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e365048f590264d9a0d3b59f812edf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameData: {fileID: 11400000, guid: ae4524c95c3e02841b5cda167b374f00, type: 2}
   playerInfluence: 0
   wolfInfluence: 0
   characters:
@@ -1729,7 +1733,6 @@ MonoBehaviour:
   infectionChanceIncrease: 10
   storyText: {fileID: 1780612616}
   playerStatsText: {fileID: 692057811}
-  wolfStatsText: {fileID: 145554941}
 --- !u!1 &1160731790
 GameObject:
   m_ObjectHideFlags: 0
@@ -2234,6 +2237,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f3fb9967c16b489295501c2f7c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: 391ed50a2b4ef084e96f42baec97c70a, type: 2}
   isWolf: 0
   isWolfRevealed: 0
   proOrAntiSpectrum: 0
@@ -2382,6 +2386,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f3fb9967c16b489295501c2f7c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: 1ef39f9908508de44a5945ed239af62f, type: 2}
   isWolf: 0
   isWolfRevealed: 0
   proOrAntiSpectrum: 0
@@ -2619,6 +2624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 053f3fb9967c16b489295501c2f7c523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  characterData: {fileID: 11400000, guid: f666c06cfb471ee4583f4a113274c701, type: 2}
   isWolf: 0
   isWolfRevealed: 0
   proOrAntiSpectrum: 0

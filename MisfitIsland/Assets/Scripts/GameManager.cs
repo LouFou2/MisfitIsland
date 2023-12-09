@@ -3,10 +3,11 @@ using UnityEngine.SceneManagement;
 using System.Collections;
 using TMPro;
 using System.Collections.Generic;
-using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField]
+    private GameDataSO gameData;
     public enum GameState
     {
         NextRound,
@@ -43,12 +44,9 @@ public class GameManager : MonoBehaviour
     private TextMeshProUGUI storyText;
     [SerializeField]
     private TextMeshProUGUI playerStatsText;
-    [SerializeField]
-    private TextMeshProUGUI wolfStatsText;
 
     void Start()
     {
-        
         //select the wolf
         wolfIndex = Random.Range(0, characters.Length);
         wolf = characters[wolfIndex];
@@ -67,7 +65,6 @@ public class GameManager : MonoBehaviour
             }
         }
         currentState = GameState.NextRound;
-        StartCoroutine(StoryCoroutine());
     }
 
     void Update()
@@ -102,8 +99,7 @@ public class GameManager : MonoBehaviour
                 HandleDefeat();
                 break;
         }
-        
-        //DisplayWolfStats();
+        gameData.numberOfRounds = numberOfRounds;
     }
     IEnumerator StoryCoroutine()
     {
@@ -196,6 +192,9 @@ public class GameManager : MonoBehaviour
     }
     void HandlePlayerTurn() 
     {
+        // get player influence value from GameData SO... //*** IS THERE A BETTER DESIGN PATTERN than this coupling?
+        playerInfluence = gameData.playerInfluence;
+
         for (int i = 0; i < characters.Length; i++)
         {
             CharacterStatus characterStatus = characters[i].GetComponent<CharacterStatus>();
@@ -207,6 +206,9 @@ public class GameManager : MonoBehaviour
         }
         playerInfluence /= characters.Length; // average "pro vs anti" sentiment of villagers
         wolfInfluence = -playerInfluence;
+        
+        // ...pass these values  back to GameData SO // *** SEE: IT GOES BACK AND FORTH...
+        gameData.playerInfluence = playerInfluence;
 
         for (int i = 0; i <= 9; i++) // Only using keycodes for this iteration of testing
         {
@@ -376,9 +378,5 @@ public class GameManager : MonoBehaviour
     void DisplayPlayerStats() 
     {
         playerStatsText.text = "Team Spirit:\n" + playerInfluence.ToString();
-    }
-    void DisplayWolfStats()
-    {
-        wolfStatsText.text = "Wolf Influence: " + wolfInfluence.ToString();
     }
 }
