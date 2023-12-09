@@ -90,6 +90,7 @@ public class GameManager : MonoBehaviour
                 break;
             case GameState.VillageTurn:
                 HandleVillageTurn();
+                DisplayPlayerStats();
                 break;
             case GameState.GuessTheWolfRound:
                 HandleWolfGuess();
@@ -101,8 +102,8 @@ public class GameManager : MonoBehaviour
                 HandleDefeat();
                 break;
         }
-        DisplayPlayerStats();
-        DisplayWolfStats();
+        
+        //DisplayWolfStats();
     }
     IEnumerator StoryCoroutine()
     {
@@ -114,13 +115,13 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
 
-            storyText.text = "There is a werewolf in your midst. Try to identify the troublemaker.";
-            yield return new WaitForSeconds(1f);
+            storyText.text = "You are the leader of this team. Chat to other team members to raise team spirit";
+            yield return new WaitForSeconds(4f);
 
-            storyText.text = "your job is to brainwash... I mean, train villagers to support your cause.";
-            yield return new WaitForSeconds(1f);
+            storyText.text = "Beware: there might be an impostor plotting to fail your mission.";
+            yield return new WaitForSeconds(4f);
 
-            storyText.text = "Select a villager to train for your cause.";
+            storyText.text = "Select a team member to interrogate...";
             storyCoroutineRunning = false;
             currentState = GameState.PlayerTurn;
         }
@@ -128,10 +129,10 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
 
-            storyText.text = "Some villagers might turn against you.";
-            yield return new WaitForSeconds(1f);
+            storyText.text = "Pay attention to members turning against you...";
+            yield return new WaitForSeconds(4f);
 
-            storyText.text = "Select a villager to train.";
+            storyText.text = "Select a team member to interrogate...";
             storyCoroutineRunning = false;
             currentState = GameState.PlayerTurn;
         }
@@ -141,18 +142,18 @@ public class GameManager : MonoBehaviour
 
             if (playerInfluence < 0) 
             {
-                storyText.text = "There is dissent growing among your villagers...";
+                storyText.text = "There is dissent growing in your team...";
             }
             else if (playerInfluence == 0) 
             {
                 storyText.text = "You don't seem to be having much influence...";
             }
             else
-                storyText.text = "You seem to be swaying some villagers to your cause";
-            yield return new WaitForSeconds(1f);
+                storyText.text = "You seem to be raising the team spirit.";
+            yield return new WaitForSeconds(4f);
 
 
-            storyText.text = "Select a villager to train.";
+            storyText.text = "Select a team member to interrogate.";
             storyCoroutineRunning = false;
             currentState = GameState.PlayerTurn;
         }
@@ -160,8 +161,8 @@ public class GameManager : MonoBehaviour
         {
             yield return new WaitForSeconds(0.2f);
 
-            storyText.text = "You must identify the werewolf.";
-            yield return new WaitForSeconds(1f);
+            storyText.text = "You must identify the impostor.";
+            yield return new WaitForSeconds(4f);
 
             storyText.text = "If you choose wrong you fail.";
             storyCoroutineRunning = false;
@@ -173,9 +174,8 @@ public class GameManager : MonoBehaviour
         storyCoroutineRunning = true;
         yield return new WaitForSeconds(0.2f); // Adjust as needed
 
-        storyText.text = "You have found the werewolf!";
-        //Debug.Log("There is a werewolf in your midst.");
-        yield return new WaitForSeconds(1f); // Adjust as needed
+        storyText.text = "You have found the impostor!";
+        yield return new WaitForSeconds(4f); // Adjust as needed
 
         //Exit scene
         SceneManager.LoadScene("Menu");
@@ -185,10 +185,10 @@ public class GameManager : MonoBehaviour
         storyCoroutineRunning = true;
         yield return new WaitForSeconds(0.2f); // Adjust as needed
 
-        storyText.text = "You executed an innocent villager!";
+        storyText.text = "The impostor raised the alarm!";
         yield return new WaitForSeconds(1f);
 
-        storyText.text = "GAME OVER";
+        storyText.text = "Mission Failed.";
         yield return new WaitForSeconds(2f);
 
         //Exit scene
@@ -375,7 +375,7 @@ public class GameManager : MonoBehaviour
     }
     void DisplayPlayerStats() 
     {
-        playerStatsText.text = "Player Influence: " + playerInfluence.ToString();
+        playerStatsText.text = "Team Spirit:\n" + playerInfluence.ToString();
     }
     void DisplayWolfStats()
     {
