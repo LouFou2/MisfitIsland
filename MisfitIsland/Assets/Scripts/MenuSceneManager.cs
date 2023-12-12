@@ -17,6 +17,6 @@ public class MenuSceneManager : MonoBehaviour
     private void OnStartButtonClick()
     {
         // Load the main scene
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Event1Scene");
     }
 }

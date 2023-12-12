@@ -22,7 +22,8 @@ public class CharacterStatus : MonoBehaviour
         infectSuccessChance = 0f; // find appropriate initial value
 
         cubeRenderer = GetComponent<Renderer>();
-        cubeRenderer.material.SetColor("_CubeColor", Color.green);
+        if (cubeRenderer != null )
+            cubeRenderer.material.SetColor("_CubeColor", Color.green);
     }
     void Update()
     {
@@ -35,10 +36,14 @@ public class CharacterStatus : MonoBehaviour
 
         isInfected = (proOrAntiSpectrum < 0) ? true : false;
 
-        if (isInTraining) UpdateCubeColor(inTrainingColor);
-        if (!isInfected && !isInTraining) UpdateCubeColor(neutralColor);
-        if (isInfected && !isInTraining) UpdateCubeColor(infectedColor);
-        if (isWolfRevealed) UpdateCubeColor(wolfColor);
+        if (cubeRenderer != null) 
+        {
+            if (isInTraining) UpdateCubeColor(inTrainingColor);
+            if (!isInfected && !isInTraining) UpdateCubeColor(neutralColor);
+            if (isInfected && !isInTraining) UpdateCubeColor(infectedColor);
+            if (isWolfRevealed) UpdateCubeColor(wolfColor);
+        }
+        
     }
 
     private void UpdateCharacterData()
