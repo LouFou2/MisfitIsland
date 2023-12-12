@@ -12,5 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a678ed6a064359468c841eb53b6d590, type: 3}
   m_Name: GameData
   m_EditorClassIdentifier: 
-  gameState: 0
   numberOfRounds: 0
+  playerInfluence: 0
+  wolfIndex: 0

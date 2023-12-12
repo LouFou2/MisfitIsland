@@ -12,9 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18e864fa02eb7544db54282ccad58f73, type: 3}
   m_Name: Character1
   m_EditorClassIdentifier: 
-  isWolf: 0
+  isWolf: 1
   isWolfRevealed: 0
   proOrAntiSpectrum: 0
   isInfected: 0
   isInTraining: 0
   infectSuccessChance: 0
+  suckUp: 0
+  twoFace: 1
+  wholeSome: 0
+  airHead: 0
+  paraNoiac: 0
+  tryHard: 0

@@ -1,22 +1,25 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MenuSceneManager : MonoBehaviour
 {
-    // Reference to your button in the Unity Editor
+    // Menu Buttons
     public Button startButton;
+    // can add more buttons when it is more fleshed out and set up
 
-    private void Start()
+    private void OnEnable()
     {
-        // Add a listener to the button click event
         startButton.onClick.AddListener(OnStartButtonClick);
     }
+    private void OnDisable()
+    {
+        startButton.onClick.RemoveListener(OnStartButtonClick);
+    }
 
-    // This method will be called when the button is clicked
     private void OnStartButtonClick()
     {
-        // Load the main scene
-        SceneManager.LoadScene("Event1Scene");
+        SceneSwitcher.Instance.SwitchToIntroScene();
     }
 }

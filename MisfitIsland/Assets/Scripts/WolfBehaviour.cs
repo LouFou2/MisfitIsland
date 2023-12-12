@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class WolfBehaviour : MonoBehaviour
 {
-    [Range(0,100)]public float infectSuccessChance;
+    [Range(0,100)]
+    public float infectSuccessChance;
     public bool infectSuccess;
     void Update()
     {

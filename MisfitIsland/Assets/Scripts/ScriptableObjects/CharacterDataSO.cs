@@ -11,4 +11,12 @@ public class CharacterDataSO : ScriptableObject
     public bool isInTraining = false;
 
     [Range(0, 100)] public float infectSuccessChance;
+
+    [Header("Persona")]
+    public bool suckUp = false;
+    public bool twoFace = false;
+    public bool wholeSome = false;
+    public bool airHead = false;
+    public bool paraNoiac = false;
+    public bool tryHard = false; // make up whatever personas fit best
 }

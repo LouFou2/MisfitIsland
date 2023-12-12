@@ -5,5 +5,5 @@ public class GameDataSO : ScriptableObject
 {
     public int numberOfRounds;
     public float playerInfluence;
-    public bool wolfSelected;
+    public int wolfIndex;
 }

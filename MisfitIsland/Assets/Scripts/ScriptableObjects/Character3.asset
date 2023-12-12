@@ -18,3 +18,9 @@ MonoBehaviour:
   isInfected: 0
   isInTraining: 0
   infectSuccessChance: 0
+  suckUp: 0
+  twoFace: 0
+  wholeSome: 0
+  airHead: 1
+  paraNoiac: 0
+  tryHard: 0
