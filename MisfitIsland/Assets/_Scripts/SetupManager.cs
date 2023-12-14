@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class SetupManager : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class SetupManager : MonoBehaviour
     private GameObject[] _characters;
     [SerializeField]
     private CharacterDataSO[] _characterData;
+
     void Start()
     {
         ResetGameData();
@@ -68,6 +68,7 @@ public class SetupManager : MonoBehaviour
     }
     void EndSetup() 
     {
-        // make some call to start Intro (StillScene
+        // tell GameEvents that Setup is Done
+        GameEvents.Instance.OnSetupComplete.Invoke();
     }
 }

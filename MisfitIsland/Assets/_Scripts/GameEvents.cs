@@ -1,9 +1,10 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class GameEvents : MonoBehaviour
+public class GameEvents : StaticInstance<GameEvents>
 {
-    public UnityEvent OnGameStart = new UnityEvent();
+    public UnityEvent OnSetupComplete = new UnityEvent();
+
     public UnityEvent OnVictory = new UnityEvent();
     public UnityEvent OnDefeat = new UnityEvent();
 
