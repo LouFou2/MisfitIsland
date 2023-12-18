@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SetupManager : MonoBehaviour
+public class SetupManager : StaticInstance<SetupManager>
 {
     [SerializeField]
     private GameDataSO gameData;
@@ -9,8 +9,18 @@ public class SetupManager : MonoBehaviour
     private GameObject[] _characters;
     [SerializeField]
     private CharacterDataSO[] _characterData;
+    [SerializeField]
+    private AllCharactersDataSO _allCharactersData;
 
-    void Start()
+    private void OnEnable()
+    {
+        GameEvents.Instance.OnSetupGame.AddListener(SetupGame);
+    }
+    private void OnDisable()
+    {
+        GameEvents.Instance.OnSetupGame.RemoveListener(SetupGame);
+    }
+    void SetupGame()
     {
         ResetGameData();
         ResetCharacterData();
@@ -25,6 +35,9 @@ public class SetupManager : MonoBehaviour
     }
     void ResetCharacterData()
     {
+        // Initialize the "All Characters" array with the correct length
+        _allCharactersData.characterDataSOs = new CharacterDataSO[_characters.Length];
+
         for (int i = 0; i < _characters.Length; i++)
         {
             _characterData[i].isWolf = false;
@@ -32,17 +45,20 @@ public class SetupManager : MonoBehaviour
             _characterData[i].proOrAntiSpectrum = 0f;
             _characterData[i].isInfected = false;
             _characterData[i].isInTraining = false;
+
+            _allCharactersData.characterDataSOs[i] = _characterData[i];
         }
     }
     void SetupWolfCharacter() 
     {
-        int wolfIndex = Random.Range(0, _characters.Length);
-        int wolfProfile = Random.Range(0, _characters.Length);
+        int wolfIndex = Random.Range(0, _characters.Length); // the wolfindex is the chosen character gameObject
+        int wolfProfile = Random.Range(0, _characters.Length); // the wolfprofile index is the chosen scriptable object
 
         CharacterDataSO wolfData = _characterData[wolfProfile];
         wolfData.isWolf = true;
 
-        _characters[wolfIndex].GetComponent<CharacterStatus>().SetupCharacterProfile(wolfData);
+        //_characters[wolfIndex].GetComponent<CharacterBehaviour>().SetupCharacterProfile(wolfData);
+        SetupEvents.Instance.OnCharacterSetup.Invoke(wolfIndex, wolfData);
 
         SetupCharacterProfiles(wolfIndex, wolfProfile);
     }
@@ -52,7 +68,7 @@ public class SetupManager : MonoBehaviour
         // Remove the wolf's profile from the available profiles
         availableProfiles.RemoveAt(wolfProfile);
 
-        for (int i = 0; i < _characters.Length; i++) 
+        for (int i = 0; i < _characters.Length; i++)
         {
             if (i != wolfIndex) // ignore the wolf Index
             {
@@ -62,13 +78,14 @@ public class SetupManager : MonoBehaviour
                 // Remove the chosen profile from the list to avoid duplicates
                 availableProfiles.RemoveAt(randomIndex);
 
-                _characters[i].GetComponent<CharacterStatus>().SetupCharacterProfile(randomProfile);
+                //_characters[i].GetComponent<CharacterBehaviour>().SetupCharacterProfile(randomProfile);
+                SetupEvents.Instance.OnCharacterSetup.Invoke(i, randomProfile);
             }
         }
     }
-    void EndSetup() 
+    void EndSetup()
     {
-        // tell GameEvents that Setup is Done
-        GameEvents.Instance.OnSetupComplete.Invoke();
+        // tell SetupEvents that Setup is Done
+        SetupEvents.Instance.OnSetupEnd.Invoke();
     }
 }

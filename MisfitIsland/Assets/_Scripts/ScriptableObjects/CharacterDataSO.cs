@@ -13,10 +13,17 @@ public class CharacterDataSO : ScriptableObject
     [Range(0, 100)] public float infectSuccessChance;
 
     [Header("Persona")]
-    public bool suckUp = false;
-    public bool twoFace = false;
-    public bool wholeSome = false;
-    public bool airHead = false;
-    public bool paraNoiac = false;
-    public bool tryHard = false; // make up whatever personas fit best
+    public PersonaType persona = PersonaType.None;
+
+    public enum PersonaType
+    {
+        None,
+        SuckUp,
+        TwoFace,
+        WholeSome,
+        AirHead,
+        ParaNoiac,
+        TryHard
+        // Add more persona types as needed
+    }
 }

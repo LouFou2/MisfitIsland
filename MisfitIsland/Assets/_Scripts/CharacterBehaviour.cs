@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CharacterStatus : MonoBehaviour
+public class CharacterBehaviour : MonoBehaviour
 {
     [SerializeField]
     public CharacterDataSO characterData;

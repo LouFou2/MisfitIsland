@@ -9,8 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fc916fc34e8eb374385b963b7135d5bd, type: 3}
-  m_Name: StorySetupDataTest
+  m_Script: {fileID: 11500000, guid: bf47e9696d3503243966d5be1621c0c4, type: 3}
+  m_Name: AllCharactersData
   m_EditorClassIdentifier: 
-  setupTitle: 'Mission Brief: Timmy McBumbus'
-  setupDescription: Retrieve Timmy's original thoughts
+  characterDataSOs: []
